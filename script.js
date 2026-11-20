@@ -45,11 +45,12 @@
   var themeBtns = [].slice.call(doc.querySelectorAll('[data-theme-btn]'));
 
   function applyTheme(t) {
-    html.setAttribute('data-theme', t);
+    var changed = html.getAttribute('data-theme') !== t;
+    if (changed) html.setAttribute('data-theme', t);
     themeBtns.forEach(function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-theme-btn') === t ? 'true' : 'false');
     });
-    write(KEY.theme, t);
+    if (changed) write(KEY.theme, t);
   }
   themeBtns.forEach(function (b) {
     b.addEventListener('click', function () { applyTheme(b.getAttribute('data-theme-btn')); });
@@ -100,13 +101,13 @@
     var n = checks.reduce(function (t, c) { return t + (c.checked ? 1 : 0); }, 0);
     var msg;
     if (n === 0) {
-      msg = 'Nothing checked yet. Start with the first question — it catches most fakes on its own.';
+      msg = 'Nothing checked yet. Start by finding the original source, then work through the other questions.';
     } else if (n <= 2) {
-      msg = n + ' of 4 checked. If you are still unsure, do not share it yet. Save it and sleep on it.';
+      msg = n + ' of 4 checked. If you are unsure, pause and verify the claim before sharing.';
     } else if (n === 3) {
-      msg = '3 of 4 checked. One gap is enough to let a fake through — try the last question.';
+      msg = '3 of 4 checked. Check the remaining question; if information is missing, wait before sharing.';
     } else {
-      msg = 'All four checked. You have done more than most people do before sharing. If it still feels wrong, trust that feeling.';
+      msg = 'All four checked. These checks can help, but they cannot guarantee a post is true. If unsure, verify it with the original source or a trusted person.';
     }
     if (checkResult) checkResult.textContent = msg;
   }
@@ -476,6 +477,7 @@
 /* ============ Welcome page ============ */
 (function () {
   var body = document.body;
+  var html = document.documentElement;
   var welcome = document.getElementById('welcome');
   var start = document.getElementById('welcomeStart');
   var brand = document.querySelector('.brand');
@@ -483,10 +485,22 @@
 
   if (!welcome) return;
 
+  function resetWelcomeLocation() {
+    if (window.location.hash && window.history && window.history.replaceState) {
+      try {
+        window.history.replaceState(window.history.state, '', window.location.pathname + window.location.search);
+      } catch (error) {}
+    }
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
   function closeWelcome() {
     welcome.classList.add('is-hidden');
-    body.classList.remove('welcome-open');
-    window.setTimeout(function () { welcome.hidden = true; }, 400);
+    window.setTimeout(function () {
+      welcome.hidden = true;
+      html.classList.remove('welcome-open');
+      body.classList.remove('welcome-open');
+    }, 400);
     if (main) {
       main.setAttribute('tabindex', '-1');
       main.focus({ preventScroll: true });
@@ -494,15 +508,22 @@
   }
 
   function openWelcome() {
+    resetWelcomeLocation();
+    html.classList.add('welcome-open');
+    body.classList.add('welcome-open');
     welcome.hidden = false;
     void welcome.offsetWidth;          
     welcome.classList.remove('is-hidden');
-    body.classList.add('welcome-open');
-    window.scrollTo({ top: 0, behavior: 'auto' });
     if (start) start.focus({ preventScroll: true });
   }
 
+  resetWelcomeLocation();
+  html.classList.add('welcome-open');
   body.classList.add('welcome-open');
+
+  window.addEventListener('pageshow', function () {
+    if (!welcome.hidden && !welcome.classList.contains('is-hidden')) resetWelcomeLocation();
+  });
 
   if (start) start.addEventListener('click', closeWelcome);
 
