@@ -11,6 +11,9 @@
   --accent:#a5271b;
   --accent-2:#2f5fd0;
   --accent-3:#7a3fd0;
+  --title-start:#8f3025;
+  --title-mid:#bd5038;
+  --title-end:#8a2d23;
   --mark-bg:#f7df91;
   --mark-ink:#2b220d;
   --mark-current-bg:#a5271b;
@@ -37,6 +40,9 @@ html[data-theme="sepia"]{
   --accent:#b2401f;
   --accent-2:#8a6a2f;
   --accent-3:#a85f4a;
+  --title-start:#87351f;
+  --title-mid:#b64d2d;
+  --title-end:#7d321f;
   --mark-bg:#e7c18d;
   --mark-ink:#302719;
   --mark-current-bg:#8a2c1b;
@@ -59,6 +65,9 @@ html[data-theme="dark"]{
   --accent:#ff8574;
   --accent-2:#8fb0ff;
   --accent-3:#c39bff;
+  --title-start:#ff927c;
+  --title-mid:#e995ad;
+  --title-end:#ad9aff;
   --mark-bg:#514878;
   --mark-ink:#fff;
   --mark-current-bg:#ff8574;
@@ -159,20 +168,20 @@ img{max-width:100%;display:block}
 }
 .glow-layer{position:absolute;inset:0;display:block;opacity:0;backface-visibility:hidden;transition:opacity .45s cubic-bezier(.22,1,.36,1)}
 .glow-paper{opacity:1;background:
-  radial-gradient(circle closest-side,rgba(255,116,86,.55),transparent) 15% 20% / 56vmax 56vmax no-repeat,
-  radial-gradient(circle closest-side,rgba(86,128,255,.48),transparent) 85% 14% / 64vmax 64vmax no-repeat,
-  radial-gradient(circle closest-side,rgba(168,96,255,.48),transparent) 78% 86% / 68vmax 68vmax no-repeat,
-  radial-gradient(circle closest-side,rgba(56,198,190,.58),transparent) 16% 88% / 62vmax 62vmax no-repeat}
+  radial-gradient(circle closest-side,rgba(255,139,111,.36),transparent) 15% 20% / 56vmax 56vmax no-repeat,
+  radial-gradient(circle closest-side,rgba(112,177,238,.27),transparent) 85% 14% / 64vmax 64vmax no-repeat,
+  radial-gradient(circle closest-side,rgba(111,202,185,.28),transparent) 78% 86% / 68vmax 68vmax no-repeat,
+  radial-gradient(circle closest-side,rgba(255,185,144,.31),transparent) 16% 88% / 62vmax 62vmax no-repeat}
 .glow-warm{background:
-  radial-gradient(circle closest-side,rgba(255,158,96,.45),transparent) 15% 20% / 56vmax 56vmax no-repeat,
-  radial-gradient(circle closest-side,rgba(224,176,110,.4),transparent) 85% 14% / 64vmax 64vmax no-repeat,
-  radial-gradient(circle closest-side,rgba(232,140,120,.4),transparent) 78% 86% / 68vmax 68vmax no-repeat,
-  radial-gradient(circle closest-side,rgba(120,186,156,.55),transparent) 16% 88% / 62vmax 62vmax no-repeat}
+  radial-gradient(circle closest-side,rgba(239,139,77,.4),transparent) 15% 20% / 56vmax 56vmax no-repeat,
+  radial-gradient(circle closest-side,rgba(240,185,91,.37),transparent) 85% 14% / 64vmax 64vmax no-repeat,
+  radial-gradient(circle closest-side,rgba(199,91,61,.3),transparent) 78% 86% / 68vmax 68vmax no-repeat,
+  radial-gradient(circle closest-side,rgba(255,211,130,.34),transparent) 16% 88% / 62vmax 62vmax no-repeat}
 .glow-night{background:
-  radial-gradient(circle closest-side,rgba(255,116,86,.4),transparent) 15% 20% / 56vmax 56vmax no-repeat,
-  radial-gradient(circle closest-side,rgba(86,128,255,.34),transparent) 85% 14% / 64vmax 64vmax no-repeat,
-  radial-gradient(circle closest-side,rgba(168,96,255,.34),transparent) 78% 86% / 68vmax 68vmax no-repeat,
-  radial-gradient(circle closest-side,rgba(56,198,190,.48),transparent) 16% 88% / 62vmax 62vmax no-repeat}
+  radial-gradient(circle closest-side,rgba(228,91,72,.56),transparent) 15% 20% / 56vmax 56vmax no-repeat,
+  radial-gradient(circle closest-side,rgba(65,112,216,.43),transparent) 85% 14% / 64vmax 64vmax no-repeat,
+  radial-gradient(circle closest-side,rgba(137,86,211,.43),transparent) 78% 86% / 68vmax 68vmax no-repeat,
+  radial-gradient(circle closest-side,rgba(39,166,167,.39),transparent) 16% 88% / 62vmax 62vmax no-repeat}
 html[data-theme="sepia"] .glow-paper,html[data-theme="dark"] .glow-paper{opacity:0}
 html[data-theme="sepia"] .glow-warm,html[data-theme="dark"] .glow-warm{opacity:0}
 html[data-theme="sepia"] .glow-warm{opacity:1}
@@ -695,7 +704,7 @@ mark.hl.current{
 }
 .hero h1 em{
   font-style:normal;
-  background:linear-gradient(100deg, var(--accent), var(--accent-2) 52%, var(--accent-3));
+  background:linear-gradient(100deg,var(--title-start),var(--title-mid) 52%,var(--title-end));
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
